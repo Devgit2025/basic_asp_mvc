@@ -29,9 +29,13 @@ namespace asp_mvc.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Student obj)
         {
-            _db.Students.Add(obj);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _db.Students.Add(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(obj);
         }
     }
 }

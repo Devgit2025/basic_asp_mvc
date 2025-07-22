@@ -1,17 +1,37 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using asp_mvc.Data;
+using asp_mvc.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace asp_mvc.Controllers
 {
     public class StudentController : Controller
     {
+        private readonly ApplicationDBContext _db;
+
+        public StudentController(ApplicationDBContext db)
+        {
+            _db = db;
+        }
+
         public IActionResult Index()
         {
-            return View();        
+            IEnumerable<Student> allStudent = _db.Students;
+
+            return View(allStudent);        
         }
+        //get method
         public IActionResult Create()
         {
             return View();
         }
-        
+        //post method
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Student obj)
+        {
+            _db.Students.Add(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

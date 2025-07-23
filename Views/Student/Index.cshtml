@@ -4,19 +4,26 @@
 }
 
 <h1 class="text-center">คะแนนสอบของวิชาคอมพิวเตอร์</h1>
-@foreach (var student in Model)
-{
-    <p>รหัสนักเรียน : @student.Id</p>
-    <p>ชื่อ : @student.Name</p>
-    <p>คะแนนสอบ : @student.Score</p>
-    @if (student.Score >= 50)
-    {
-        <strong class="text-success">สอบผ่าน</strong>
-    }
-    else
-    {
-        <strong class="text-danger">สอบไม่ผ่าน</strong>
-    }
-    <hr/>
-}
+<table class="table">
+    <thead>
+        <th>รหัสนักเรียน</th>
+        <th>ชื่อนักเรียน</th>
+        <th>คะแนนสอบ</th>
+        <th>แก้ไข</th>
+        <th>ลบ</th>
+    </thead>
+    <tbody>
+        @foreach(var student in Model)
+        {
+            <tr>
+                <td>@student.Id</td>
+                <td>@student.Name</td>
+                <td>@student.Score</td>
+                <td><a class="btn btn-warning">แก้ไข</a></td>
+                <td><a class="btn btn-danger">ลบ</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
 

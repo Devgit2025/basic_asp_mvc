@@ -38,6 +38,7 @@ namespace asp_mvc.Controllers
             return View(obj);
         }
 
+        //get method
         public IActionResult Edit(int? id)
         {
             if (id == null || id == 0)
@@ -64,6 +65,23 @@ namespace asp_mvc.Controllers
                 return RedirectToAction("Index");
             }
             return View(obj);
+        }
+        //get method
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var obj = _db.Students.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            _db.Students.Remove(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+
         }
     }
 }
